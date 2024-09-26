@@ -16,16 +16,17 @@
     <hr>
     @forelse ($idea->comments as $comment)
         <div class="d-flex align-items-start">
-            <img style="width:35px" class="me-2 avatar-sm rounded-circle" src="{{ $comment->user->getImageURL() }}"
+            <img style="width:35px" class="me-3 avatar-sm rounded-circle" src="{{ $comment->user->getImageURL() }}"
                 alt="User">
             <div class="w-100">
                 <div class="d-flex justify-content-between">
-                    <h6 class=""><a href="{{ route('users.show', $idea->user->id) }}">
+                    <h5 class=""><a style="text-decoration: none;"
+                            href="{{ route('users.show', $comment->user->id) }}">
                             {{ $comment->user->name }}
                         </a>
-                    </h6>
+                    </h5>
                     <small class="fs-6 fw-light text-muted">
-                        {{ date('M d, Y H:i A', strtotime("$comment->created_at")) }}
+                        {{ $comment->created_at->diffForHumans() }}
                     </small>
                 </div>
                 <p class="fs-6 mt-3 fw-light">

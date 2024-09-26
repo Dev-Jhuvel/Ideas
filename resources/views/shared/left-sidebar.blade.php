@@ -4,8 +4,16 @@
             <li class="nav-item">
                 <a class="{{ Route::is('dashboard') ? 'text-white bg-primary rounded' : '' }} nav-link"
                     href="{{ route('dashboard') }}">
-                    <span>Home</span></a>
+                    <span>For You</span></a>
             </li>
+            @auth
+                <li class="nav-item">
+                    <a class="{{ Route::is('following') ? 'text-white bg-primary rounded' : '' }} nav-link"
+                        href="{{ route('following') }}">
+                        <span>Following</span></a>
+                </li>
+            @endauth
+
             <li class="nav-item">
                 <a class="nav-link" href="#">
                     <span>Explore</span></a>

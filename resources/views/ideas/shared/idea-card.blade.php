@@ -2,12 +2,13 @@
     <div class="px-3 pt-4 pb-2">
         <div class="d-flex align-items-center justify-content-between">
             <div class="d-flex align-items-center">
-                <img style="object-fit:scale-down;width:60px;height:60px" class="me-2 avatar-sm rounded-circle"
+                <img style="object-fit:scale-down;width:60px;height:60px" class="me-3 avatar-sm rounded-circle"
                     src="{{ $idea->user->getImageURL() }}" alt="User">
                 <div>
-                    <h5 class="card-title mb-0"><a href="{{ route('users.show', $idea->user->id) }}">
+                    <h3 class="card-title mb-0"><a style="text-decoration: none;"
+                            href="{{ route('users.show', $idea->user->id) }}">
                             {{ $idea->user->name }}
-                        </a></h5>
+                        </a></h3>
                     <?php /*
                     @auth  
                         @if (Auth::id() !== $idea->user->id)
@@ -62,17 +63,24 @@
                 </div>
             </form>
         @else
-            <p class="fs-6 fw-light text-muted">
+            <p class="fs-3 fw-light text-muted">
                 {{ $idea->content }}
             </p>
+            <hr>
         @endif
         <div class="d-flex justify-content-between">
+
             @include('ideas.shared.like-button')
             <div>
+                <span class="fw-light nav-link fs-4 me-3"><span class="fas fa-comment me-1"></span>
+                    {{ $idea->comments()->count() }}</span>
+
+            </div>
+            <div>
                 <span class="fs-6 fw-light text-muted"> <span class="fas fa-clock"> </span>
-                    {{ date('M d, Y H:i A', strtotime("$idea->created_at")) }} </span>
+                    {{ $idea->created_at->diffForHumans() }} </span>
             </div>
         </div>
-        @include('shared.comments-box')
+        @include('ideas.shared.comments-box')
     </div>
 </div>

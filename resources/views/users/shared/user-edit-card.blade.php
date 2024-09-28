@@ -1,3 +1,4 @@
+@section('title', 'Edit Profile')
 <div class="card">
     <div class="px-3 pt-4 pb-2">
         <form enctype="multipart/form-data" method="POST" action="{{ route('users.update', $user->id) }}">

@@ -1,8 +1,8 @@
-<div class="card">
+<div style="max-width: 100%;" class="card">
     <div class="px-3 pt-4 pb-2">
         <div class="d-flex align-items-center justify-content-between">
             <div class="d-flex align-items-center">
-                <img style="object-fit:scale-down;width:60px;height:60px" class="me-3 avatar-sm rounded-circle"
+                <img width="60px" height="60px" class="me-3 avatar-sm rounded-circle"
                     src="{{ $idea->user->getImageURL() }}" alt="User">
                 <div class="">
                     <h3 class="card-title mb-0 mr-10 "><a style="text-decoration: none;"
@@ -12,7 +12,7 @@
                 </div>
                 <div class="px-2">
                     @auth
-                        @if (Auth::id() !== $idea->user->id)
+                        @if (Auth::user()->isNot($idea->user))
                             @if (Auth::user()->follows($idea->user))
                                 <a class="nav-link dropdown-toggle " data-bs-toggle="dropdown" href="#" role="button"
                                     aria-haspopup="true" aria-expanded="false"></a>
@@ -39,6 +39,10 @@
                         @endif
                     @endauth
                 </div>
+                <div>
+                    <span class="fs-8 fw-light text-muted"> <span class="fas fa-clock"> </span>
+                        {{ $idea->created_at->diffForHumans() }} </span>
+                </div>
             </div>
             <div class="d-flex">
                 <a href="{{ route('ideas.show', $idea->id) }}"
@@ -57,6 +61,7 @@
     </div>
     <div class="card-body">
         @if ($editing ?? false)
+            @section('title', 'Edit Idea')
             <form action="{{ route('ideas.update', $idea->id) }}" method="post">
                 @csrf
                 @method('put')
@@ -72,6 +77,7 @@
             </form>
         @else
             <p class="fs-3 fw-light text-muted">
+                @section('title', 'View Idea')
                 {{ $idea->content }}
             </p>
             <hr>
@@ -81,12 +87,11 @@
             @include('ideas.shared.like-button')
             <div>
                 <span class="fw-light nav-link fs-4 me-3"><span class="fas fa-comment me-1"></span>
-                    {{ $idea->comments()->count() }}</span>
+                    {{ $idea->comments_count }}</span>
 
             </div>
             <div>
-                <span class="fs-6 fw-light text-muted"> <span class="fas fa-clock"> </span>
-                    {{ $idea->created_at->diffForHumans() }} </span>
+                <span class="fs-4 fw-light"> <span class="fas fa-share"> </span> Share</span>
             </div>
         </div>
         @include('ideas.shared.comments-box')

@@ -8,22 +8,22 @@ use Illuminate\Auth\Access\Response;
 
 class IdeaPolicy
 {
-
+    /*
     public function update(User $user, Idea $idea): bool
     {
         return ($user->is_admin || $user->id === $idea->user_id);
     }
 
-    /**
+    
      * Determine whether the user can delete the model.
-     */
+     
     public function delete(User $user, Idea $idea): bool
     {
         return ($user->is_admin || $user->id === $idea->user_id);
     }
-    
+        */
     public function editAndDelete(User $user, Idea $idea): bool
     {
-        return ($user->is_admin || $user->id === $idea->user_id);
+        return ($user->is_admin || $user->is($idea->user));
     }
 }

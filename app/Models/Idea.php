@@ -15,6 +15,11 @@ class Idea extends Model
 
   use HasFactory;
 
+  protected $withCount = [
+    'likes',
+    'comments',
+  ];
+
   protected $fillable = [
     'user_id',
     'content',

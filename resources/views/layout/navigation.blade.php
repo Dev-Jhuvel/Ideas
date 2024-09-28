@@ -27,12 +27,10 @@
                 @endguest
                 @auth()
                     @if (Auth::user()->is_admin)
-                        {
                         <li class="nav-item">
                             <a class="{{ Route::is('admin.dashboard') ? 'active' : '' }} nav-link"
                                 href="{{ route('admin.dashboard') }}">Admin Dashboard</a>
                         </li>
-                        }
                     @endif
                     <li class="nav-item">
                         <a class="{{ Route::is('profile') ? 'active' : '' }} nav-link"
@@ -41,7 +39,7 @@
                     <li class="nav-item">
                         <form method="post" action=" {{ route('logout') }} ">
                             @csrf
-                            <button type="submit" class="btn btn-danger btn-sm">Logout</button>
+                            <button type="submit" class="btn btn-danger">Logout</button>
                         </form>
                     </li>
                 @endauth

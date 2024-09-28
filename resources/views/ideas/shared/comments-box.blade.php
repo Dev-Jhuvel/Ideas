@@ -16,8 +16,8 @@
     <hr>
     @forelse ($idea->comments as $comment)
         <div class="d-flex align-items-start">
-            <img style="width:35px" class="me-3 avatar-sm rounded-circle" src="{{ $comment->user->getImageURL() }}"
-                alt="User">
+            <img width="35px" height="35px" class="me-3 avatar-sm rounded-circle"
+                src="{{ $comment->user->getImageURL() }}" alt="User">
             <div class="w-100">
                 <div class="d-flex justify-content-between">
                     <h5 class=""><a style="text-decoration: none;"
@@ -25,7 +25,7 @@
                             {{ $comment->user->name }}
                         </a>
                     </h5>
-                    <small class="fs-6 fw-light text-muted">
+                    <small class="fs-6 fw-light text-muted"><span class="fas fa-clock"></span>
                         {{ $comment->created_at->diffForHumans() }}
                     </small>
                 </div>

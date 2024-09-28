@@ -4,46 +4,54 @@
             <div class="d-flex align-items-center">
                 <img style="object-fit:scale-down;width:60px;height:60px" class="me-3 avatar-sm rounded-circle"
                     src="{{ $idea->user->getImageURL() }}" alt="User">
-                <div>
-                    <h3 class="card-title mb-0"><a style="text-decoration: none;"
+                <div class="">
+                    <h3 class="card-title mb-0 mr-10 "><a style="text-decoration: none;"
                             href="{{ route('users.show', $idea->user->id) }}">
                             {{ $idea->user->name }}
                         </a></h3>
-                    <?php /*
-                    @auth  
+                </div>
+                <div class="px-2">
+                    @auth
                         @if (Auth::id() !== $idea->user->id)
                             @if (Auth::user()->follows($idea->user))
-                                <form action="{{ route('users.unfollow', $idea->user->id) }}" method="POST">
-                                    @csrf
-                                    <button type="submit" class="btn btn-primary btn-sm"> Unfollow </button>
-                                </form>
+                                <a class="nav-link dropdown-toggle " data-bs-toggle="dropdown" href="#" role="button"
+                                    aria-haspopup="true" aria-expanded="false"></a>
+                                <div class="dropdown-menu" style="">
+                                    <form id="post-form" action="{{ route('users.unfollow', $idea->user->id) }}"
+                                        method="POST">
+                                        @csrf
+                                        <a onclick="document.getElementById('post-form').submit();" class="dropdown-item"
+                                            href="#">Unfollow</a>
+                                    </form>
+                                </div>
                             @else
-                                <form action="{{ route('users.follow', $idea->user->id) }}" method="POST">
-                                    @csrf
-                                    <button type="submit" class="btn btn-primary btn-sm"> Follow </button>
-                                </form>
+                                <a class="nav-link dropdown-toggle " data-bs-toggle="dropdown" href="#" role="button"
+                                    aria-haspopup="true" aria-expanded="false"></a>
+                                <div class="dropdown-menu" style="">
+                                    <form id="post-form" action="{{ route('users.follow', $idea->user->id) }}"
+                                        method="POST">
+                                        @csrf
+                                        <a onclick="document.getElementById('post-form').submit();" class="dropdown-item"
+                                            href="#">Follow</a>
+                                    </form>
+                                </div>
                             @endif
                         @endif
                     @endauth
-                    */
-                    ?>
                 </div>
             </div>
-            <div>
-                @if (Auth::id() !== $idea->user->id)
+            <div class="d-flex">
+                <form method="POST" action="{{ route('ideas.destroy', $idea->id) }}">
+                    @csrf
+                    @method('delete')
                     <a href="{{ route('ideas.show', $idea->id) }}"
                         class="link-success link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover">View</a>
-                @else
-                    <form method="POST" action="{{ route('ideas.destroy', $idea->id) }}">
-                        @csrf
-                        @method('delete')
+                    @can('idea.editAndDelete', $idea)
                         <a href="{{ route('ideas.edit', $idea->id) }}"
                             class="mx-2 link-warning link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover">Edit</a>
-                        <a href="{{ route('ideas.show', $idea->id) }}"
-                            class="link-success link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover">View</a>
                         <button class="ms-1 btn btn-danger btn-sm">x</button>
-                    </form>
-                @endif
+                    @endcan
+                </form>
             </div>
         </div>
     </div>

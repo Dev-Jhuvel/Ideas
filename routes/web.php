@@ -47,7 +47,7 @@ Route::post('ideas/{idea}/unlike', [IdeaLikeController::class, 'unlike'])->middl
 
 Route::get('/following', FeedController::class)->middleware('auth')->name('following');
 
-Route::get('/admin', [AdminDasboardController::class, 'index'])->middleware('auth', 'admin')->name('admin.dashboard');
+Route::get('/admin', [AdminDasboardController::class, 'index'])->middleware('auth','can:admin')->name('admin.dashboard');
 
 
 Route::get('/terms', function () {

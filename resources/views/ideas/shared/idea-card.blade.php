@@ -41,14 +41,14 @@
                 </div>
             </div>
             <div class="d-flex">
-                <form method="POST" action="{{ route('ideas.destroy', $idea->id) }}">
-                    @csrf
-                    @method('delete')
-                    <a href="{{ route('ideas.show', $idea->id) }}"
-                        class="link-success link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover">View</a>
-                    @can('idea.editAndDelete', $idea)
-                        <a href="{{ route('ideas.edit', $idea->id) }}"
-                            class="mx-2 link-warning link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover">Edit</a>
+                <a href="{{ route('ideas.show', $idea->id) }}"
+                    class="link-success link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover">View</a>
+                @can('editAndDelete', $idea)
+                    <a href="{{ route('ideas.edit', $idea->id) }}"
+                        class="mx-2 link-warning link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover">Edit</a>
+                    <form method="POST" action="{{ route('ideas.destroy', $idea->id) }}">
+                        @csrf
+                        @method('delete')
                         <button class="ms-1 btn btn-danger btn-sm">x</button>
                     @endcan
                 </form>

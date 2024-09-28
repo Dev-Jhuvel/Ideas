@@ -25,12 +25,12 @@ Route::resource('ideas.comments', CommentController::class)->only(['store'])->mi
 
 
 
-Route::get('/register', [AuthController::class, 'register'])->name(name: 'register');
+Route::get('/register', [AuthController::class, 'register'])->middleware('guest')->name(name: 'register');
 Route::post('/register', [AuthController::class, 'store']);
 
-Route::get('/login', [AuthController::class, 'login'])->name(name: 'login');
+Route::get('/login', [AuthController::class, 'login'])->middleware('guest')->name(name: 'login');
 Route::post('/login', [AuthController::class, 'authenticate']);
-Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
+Route::post('/logout', [AuthController::class, 'logout'])->middleware(middleware: 'auth')->name('logout');
 
 Route::resource('users', UserController::class)->only(['show']);
 
@@ -47,7 +47,7 @@ Route::post('ideas/{idea}/unlike', [IdeaLikeController::class, 'unlike'])->middl
 
 Route::get('/following', FeedController::class)->middleware('auth')->name('following');
 
-Route::get('/admin', [AdminDasboardController::class, 'index'])->middleware('auth','can:admin')->name('admin.dashboard');
+Route::get('/admin', [AdminDasboardController::class, 'index'])->middleware('auth', 'can:admin')->name('admin.dashboard');
 
 
 Route::get('/terms', function () {

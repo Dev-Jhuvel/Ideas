@@ -30,14 +30,14 @@ class IdeaController extends Controller
 
     public function edit(Idea $idea)
     {
-        Gate::authorize('idea.editAndDelete', $idea);
+        Gate::authorize('editAndDelete', $idea);
 
         $editing = true;
         return view('ideas.show', compact('idea', 'editing'));
     }
     public function update(Idea $idea)
     {
-        Gate::authorize('idea.editAndDelete', $idea);
+        Gate::authorize('editAndDelete', $idea);
 
         $validated = request()->validate([
             'content' => 'required|min:3|max:240'
@@ -51,7 +51,7 @@ class IdeaController extends Controller
 
     public function destroy(Idea $idea)
     {
-        Gate::authorize('idea.editAndDelete', $idea);
+        Gate::authorize('editAndDelete', $idea);
 
         $idea->delete();
         return redirect()->route('dashboard')->with('destroy', 'Idea Deleted sucessfully!');

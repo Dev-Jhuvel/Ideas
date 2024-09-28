@@ -28,8 +28,6 @@ class AppServiceProvider extends ServiceProvider
             return (bool) $user->is_admin;
         });
 
-        Gate::define('idea.editAndDelete', function (User $user, Idea $idea): bool {
-            return ((bool) $user->is_admin || $user->id === $idea->user_id);
-        });
+        //Gate::define('idea.editAndDelete', function (User $user, Idea $idea): bool {return ((bool) $user->is_admin || $user->id === $idea->user_id); });
     }
 }
